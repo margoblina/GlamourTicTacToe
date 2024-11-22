@@ -3,10 +3,6 @@ import tkinter as tk
 from pygame import mixer
 from tkinter import messagebox
 
-#загружаем музыку
-mixer.init()
-mixer.music.load('glamour.mp3')
-
 class GlamourTicTacToe:
     def __init__(self, master):
         self.master = master
@@ -28,6 +24,12 @@ class GlamourTicTacToe:
 
     #создаём правила игры и делаем проверку победы или ничьи
     def make_move(self, index):
+        '''
+        Обрабатывает ход игрока на игровой доске.
+        
+        Args:
+            index: Индекс кнопки (ячейки), которую выбрал игрок.
+        '''
         if self.board[index] == "":
             self.board[index] = self.current_player
             self.buttons[index].config(text=self.current_player)
@@ -42,6 +44,11 @@ class GlamourTicTacToe:
 
      #задаём, в каких ячейках должны быть знаки, чтобы случилась победа
     def check_winner(self):
+        '''
+        Проверяет победу.
+        Returns:
+            True, если есть победитель, False, если нет.
+        '''
         winning_combinations = [
             (0, 1, 2), (3, 4, 5), (6, 7, 8),
             (0, 3, 6), (1, 4, 7), (2, 5, 8),
@@ -55,6 +62,9 @@ class GlamourTicTacToe:
 
     #делаем так, чтобы игра начиналась бесконечно
     def reset_game(self):
+        '''
+        Возвращает доску в начальное состояние.
+        '''
         self.board = [""] * 9
         for button in self.buttons:
             button.config(text="")
@@ -62,6 +72,9 @@ class GlamourTicTacToe:
 
 #делаем запуск игры
 if __name__ == "__main__":
+      #загружаем музыку
+    mixer.init()
+    mixer.music.load('glamour.mp3')
     root = tk.Tk()
     game = GlamourTicTacToe(root)
     mixer.music.play(loops=-1)
